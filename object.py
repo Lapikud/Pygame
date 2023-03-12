@@ -14,3 +14,10 @@ class Object:
         self.width = 40
         self.height = 40
         self.type = object_type
+        self.container = None
+        self.destroyed = False
+
+    def add_item(self, item):
+        if self.type == ObjectType.ITEM:
+            self.container = item
+

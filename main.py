@@ -3,6 +3,7 @@ import pygame
 from Character import Character
 from object import Object
 from object import ObjectType
+from item import Item
 
 
 class Game:
@@ -21,7 +22,9 @@ class Game:
     def create_objects(self):
         object1 = Object(200, 300, ObjectType.SOLID)
         object2 = Object(50, 440, ObjectType.SOLID)
-        return [object1, object2]
+        object_item = Object(500, 400, ObjectType.ITEM)
+        object_item.add_item(Item("Sword"))
+        return [object1, object2, object_item]
 
     def event(self):
         event_list = pygame.event.get()
@@ -41,14 +44,22 @@ class Game:
                     (collision["vertical"] and collision["horizontal"]):
                 print("Collision with object at ", game_object.x, game_object.y)
                 print(collision)
+            if game_object.type == ObjectType.ITEM and \
+                    (collision["vertical"] and collision["horizontal"]):
+                print("collect object")
+                self.character.add_item(game_object.container)
+                game_object.destroyed = True
         self.character.move(self.window.get_width(), self.window.get_height())
+        self.objects = [x for x in self.objects if not x.destroyed]
 
     def render(self):
         self.window.fill((51, 51, 51))
-        pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, self.character.width, self.character.height))
+        pygame.draw.rect(self.window, (0, 0, 200),
+                         (self.character.x, self.character.y, self.character.width, self.character.height))
         self.window.blit(self.character.img, (self.character.x, self.character.y))
         for game_object in self.objects:
-            pygame.draw.rect(self.window, (0, 255, 0), (game_object.x, game_object.y, game_object.width, game_object.height))
+            pygame.draw.rect(self.window, (0, 255, 0),
+                             (game_object.x, game_object.y, game_object.width, game_object.height))
         pygame.display.update()
 
     def run(self):
