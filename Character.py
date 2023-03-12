@@ -1,6 +1,10 @@
 import pygame
 
 
+from object import Object
+
+
+
 class Character:
     def __init__(self):
         self.x, self.y = 120, 120
@@ -43,3 +47,11 @@ class Character:
 
     def halt(self):
         self.vx, self.vy = 0, 0
+
+    def detect_collision(self, object_list):
+        for game_object in object_list:
+            if self.x < game_object.x < self.x + self.width and self.y < game_object.y < self.y + self.height:
+                return game_object
+            if self.x < game_object.x + game_object.width < self.x + self.width and self.y < game_object.y + game_object.height < self.y + self.height:
+                return game_object
+        return

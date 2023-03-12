@@ -1,6 +1,7 @@
 import pygame
 
 from Character import Character
+from object import Object
 
 
 class Game:
@@ -14,6 +15,12 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.character = Character()
+        self.objects = self.create_objects()
+
+    def create_objects(self):
+        object1 = Object(200, 300)
+        object2 = Object(50, 440)
+        return [object1, object2]
 
     def event(self):
         event_list = pygame.event.get()
@@ -27,12 +34,16 @@ class Game:
                 self.character.release_key(event.key)
 
     def update(self):
-        pass
+        game_object = self.character.detect_collision(self.objects)
+        if game_object:
+            print("Collision with object at ", game_object.x, game_object.y)
 
     def render(self):
         self.character.move(self.window.get_width(), self.window.get_height())
         self.window.fill((51, 51, 51))
         pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, self.character.width, self.character.height))
+        for game_object in self.objects:
+            pygame.draw.rect(self.window, (0, 255, 0), (game_object.x, game_object.y, game_object.width, game_object.height))
         pygame.display.update()
 
     def run(self):
