@@ -22,7 +22,7 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 self.character.change_direction(event.key)
             elif event.type == pygame.KEYUP:
-                self.character.halt()
+                self.character.release_key(event.key)
 
     def update(self):
         pass

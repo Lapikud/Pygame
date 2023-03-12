@@ -1,5 +1,6 @@
 import pygame
 
+
 class Character:
     def __init__(self):
         self.x, self.y = 120, 120
@@ -14,9 +15,19 @@ class Character:
         elif key == pygame.K_LEFT or key == pygame.K_a:
             self.vx = -self.speed
         elif key == pygame.K_DOWN or key == pygame.K_s:
-            self.vy += self.speed
+            self.vy = self.speed
         elif key == pygame.K_UP or key == pygame.K_w:
             self.vy = -self.speed
+
+    def release_key(self, key: pygame.constants):
+        if key == pygame.K_RIGHT or key == pygame.K_d:
+            self.vx = 0
+        elif key == pygame.K_LEFT or key == pygame.K_a:
+            self.vx = 0
+        elif key == pygame.K_DOWN or key == pygame.K_s:
+            self.vy = 0
+        elif key == pygame.K_UP or key == pygame.K_w:
+            self.vy = 0
 
     def move(self, screen_width, screen_height):
         self.x = self.x + self.vx
