@@ -7,13 +7,13 @@ class Character:
         self.speed = 5
 
     def change_direction(self, key: pygame.constants):
-        if key == pygame.K_RIGHT:
+        if key == pygame.K_RIGHT or key == pygame.K_d:
             self.vx = self.speed
-        elif key == pygame.K_LEFT:
+        elif key == pygame.K_LEFT or key == pygame.K_a:
             self.vx = -self.speed
-        elif key == pygame.K_DOWN:
+        elif key == pygame.K_DOWN or key == pygame.K_s:
             self.vy += self.speed
-        elif key == pygame.K_UP:
+        elif key == pygame.K_UP or key == pygame.K_w:
             self.vy = -self.speed
 
     def move(self):
