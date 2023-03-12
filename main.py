@@ -10,6 +10,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.x, self.y = 120, 120
+        self.vx, self.vy = 0, 0
+        self.speed = 5
 
     def event(self):
         event_list = pygame.event.get()
@@ -19,18 +21,22 @@ class Game:
                 break
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    self.x += 40
+                    self.vx = self.speed
                 elif event.key == pygame.K_LEFT:
-                    self.x -= 40
+                    self.vx = -self.speed
                 elif event.key == pygame.K_DOWN:
-                    self.y += 40
+                    self.vy += self.speed
                 elif event.key == pygame.K_UP:
-                    self.y -= 40
+                    self.vy = -self.speed
+            elif event.type == pygame.KEYUP:
+                self.vx, self.vy = 0, 0
 
     def update(self):
         pass
 
     def render(self):
+        self.x = self.x + self.vx
+        self.y = self.y + self.vy
         self.window.fill((51, 51, 51))
         pygame.draw.rect(self.window, (0, 0, 200), (self.x, self.y, 40, 40))
         pygame.display.update()
