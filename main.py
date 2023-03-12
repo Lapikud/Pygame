@@ -6,8 +6,10 @@ from Character import Character
 class Game:
     def __init__(self):
         pygame.init()
-        self.window = pygame.display.set_mode((640, 480))
-        self.end_surface = pygame.Surface((640, 480))
+        self.SCREEN_WIDTH = 640
+        self.SCREEN_HEIGHT = 480
+        self.window = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        self.end_surface = pygame.Surface((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.end_surface.fill((255, 0, 0))
         self.clock = pygame.time.Clock()
         self.running = True
