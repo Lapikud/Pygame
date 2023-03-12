@@ -37,7 +37,7 @@ class Game:
     def update(self):
         for game_object in self.objects:
             if game_object.type == ObjectType.SOLID and \
-                    (self.character.detect_collision(game_object)["vertical"] or self.character.detect_collision(game_object)["horizontal"]):
+                    (self.character.detect_collision(game_object)["vertical"] and self.character.detect_collision(game_object)["horizontal"]):
                 print("Collision with object at ", game_object.x, game_object.y)
                 print(self.character.detect_collision(game_object))
         self.character.move(self.window.get_width(), self.window.get_height())
