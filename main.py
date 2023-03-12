@@ -3,6 +3,7 @@ pygame.init()
 
 # create a window
 screen = pygame.display.set_mode((1200, 600))
+clock = pygame.time.Clock()
 
 running = True
 while running:
@@ -17,3 +18,6 @@ while running:
 
     # Update screen
     pygame.display.flip()
+
+    # FPS
+    clock.tick(30)
