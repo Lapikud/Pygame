@@ -44,6 +44,7 @@ class Game:
         self.character.move(self.window.get_width(), self.window.get_height())
         self.window.fill((51, 51, 51))
         pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, self.character.width, self.character.height))
+        self.window.blit(self.character.img, (self.character.x, self.character.y))
         for game_object in self.objects:
             pygame.draw.rect(self.window, (0, 255, 0), (game_object.x, game_object.y, game_object.width, game_object.height))
         pygame.display.update()

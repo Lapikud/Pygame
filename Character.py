@@ -8,6 +8,9 @@ class Character:
         self.speed = 5
         self.width = 40
         self.height = 40
+        # import (transparent) sprite and upscale it from 32px to 40 px
+        self.img = pygame.image.load("sprites/Dude_Monster.png").convert_alpha()
+        self.img = pygame.transform.scale(self.img, (40, 40))
 
     def change_direction(self, key: pygame.constants):
         if key == pygame.K_RIGHT or key == pygame.K_d:
