@@ -36,12 +36,13 @@ class Game:
 
     def update(self):
         for game_object in self.objects:
-            if self.character.detect_collision(game_object):
+            if game_object.type == ObjectType.SOLID and \
+                    (self.character.detect_collision(game_object)["vertical"] or self.character.detect_collision(game_object)["horizontal"]):
                 print("Collision with object at ", game_object.x, game_object.y)
+                print(self.character.detect_collision(game_object))
         self.character.move(self.window.get_width(), self.window.get_height())
 
     def render(self):
-        self.character.move(self.window.get_width(), self.window.get_height())
         self.window.fill((51, 51, 51))
         pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, self.character.width, self.character.height))
         for game_object in self.objects:
