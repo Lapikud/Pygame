@@ -42,13 +42,13 @@ class Character:
             self.y = screen_height - self.height
 
     def detect_collision(self, game_object):
-        collisionFrom = {"vertical": None, "horizontal": None}
+        collision_from = {"vertical": None, "horizontal": None}
         if self.x <= game_object.x + game_object.width <= self.x + self.width:
-            collisionFrom["horizontal"] = "left"
+            collision_from["horizontal"] = "left"
         if self.y <= game_object.y + game_object.height <= self.y + self.height:
-            collisionFrom["vertical"] = "upper"
+            collision_from["vertical"] = "upper"
         if self.x <= game_object.x <= self.x + self.width:
-            collisionFrom["horizontal"] = "right"
+            collision_from["horizontal"] = "right"
         if self.y <= game_object.y <= self.y + self.height:
-            collisionFrom["vertical"] = "lower"
-        return collisionFrom
+            collision_from["vertical"] = "lower"
+        return collision_from
