@@ -18,6 +18,7 @@ class Game:
         self.running = True
         self.character = Character()
         self.objects = self.create_objects()
+        self.background = pygame.image.load("backgrounds/bg1.png").convert_alpha()
 
     def create_objects(self):
         object1 = Object(200, 300, ObjectType.SOLID)
@@ -54,6 +55,7 @@ class Game:
 
     def render(self):
         self.window.fill((51, 51, 51))
+        self.window.blit(self.background, (0, 0))
         pygame.draw.rect(self.window, (0, 0, 200),
                          (self.character.x, self.character.y, self.character.width, self.character.height))
         self.window.blit(self.character.img, (self.character.x, self.character.y))
