@@ -4,6 +4,7 @@ from Character import Character
 from object import Object
 from object import ObjectType
 from item import Item
+from gate import Gate
 
 
 class Game:
@@ -25,7 +26,11 @@ class Game:
         object2 = Object(50, 440, ObjectType.SOLID)
         object_item = Object(500, 400, ObjectType.ITEM)
         object_item.add_item(Item("Sword"))
-        return [object1, object2, object_item]
+        gate1 = Gate(pygame.image.load("backgrounds/bg2.png").convert_alpha())
+        object_gate1 = Object(600, 120, ObjectType.GATE)
+        object_gate1.add_item(gate1)
+
+        return [object1, object2, object_item, object_gate1]
 
     def event(self):
         event_list = pygame.event.get()
@@ -50,6 +55,14 @@ class Game:
                 print("collect object")
                 self.character.add_item(game_object.container)
                 game_object.destroyed = True
+            if game_object.type == ObjectType.GATE and \
+                    (collision["vertical"] and collision["horizontal"]):
+                print("move to another room")
+                gate = game_object.container
+                self.background = gate.background
+                self.objects = gate.objects
+                self.character.move_to_position(game_object.x - 600, game_object.y)
+                break
         self.character.move(self.window.get_width(), self.window.get_height())
         self.objects = [x for x in self.objects if not x.destroyed]
 

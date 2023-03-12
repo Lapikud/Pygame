@@ -17,7 +17,7 @@ class Object:
         self.container = None
         self.destroyed = False
 
-    def add_item(self, item):
-        if self.type == ObjectType.ITEM:
-            self.container = item
+    def add_item(self, containable):
+        if self.type == ObjectType.ITEM or self.type == ObjectType.GATE:
+            self.container = containable
 

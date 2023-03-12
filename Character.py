@@ -64,3 +64,7 @@ class Character:
 
     def delete_item(self, item):
         self.inventory.remove(item)
+
+    def move_to_position(self, move_to_x, move_to_y):
+        self.x = move_to_x
+        self.y = move_to_y
