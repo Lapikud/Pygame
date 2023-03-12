@@ -28,9 +28,9 @@ class Game:
         pass
 
     def render(self):
-        self.character.move()
+        self.character.move(self.window.get_width(), self.window.get_height())
         self.window.fill((51, 51, 51))
-        pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, 40, 40))
+        pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, self.character.width, self.character.height))
         pygame.display.update()
 
     def run(self):
