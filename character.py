@@ -46,16 +46,15 @@ class Character:
             self.y = screen_height - self.height
 
     def detect_collision(self, game_object):
-        collision_from = {"vertical": None, "horizontal": None}
-        if self.x <= game_object.x + game_object.width <= self.x + self.width:
-            collision_from["horizontal"] = "left"
-        if self.y <= game_object.y + game_object.height <= self.y + self.height:
-            collision_from["vertical"] = "upper"
-        if self.x <= game_object.x <= self.x + self.width:
-            collision_from["horizontal"] = "right"
-        if self.y <= game_object.y <= self.y + self.height:
-            collision_from["vertical"] = "lower"
-        return collision_from
+        if self.y + self.height >= game_object.y and not (self.y >= game_object.y):
+            return "down"
+        if self.y <= game_object.y + game_object.height and not (self.y <= game_object.y):
+            return "up"
+        if self.x + self.width >= game_object.x and not (self.x >= game_object.x):
+            return "right"
+        if self.x <= game_object.x + game_object.width and not (self.x <= game_object.x):
+            return "left"
+        return False
 
     # Inventory methods
     def add_item(self, item):

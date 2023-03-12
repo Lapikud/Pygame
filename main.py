@@ -1,6 +1,6 @@
 import pygame
 
-from Character import Character
+from character import Character
 from object import Object
 from object import ObjectType
 from item import Item
@@ -39,13 +39,13 @@ class Game:
 
     def update(self):
         for game_object in self.objects:
-            collision = self.character.detect_collision(game_object)
+            collision_from = self.character.detect_collision(game_object)
             if game_object.type == ObjectType.SOLID and \
-                    (collision["vertical"] and collision["horizontal"]):
+                    collision_from:
                 print("Collision with object at ", game_object.x, game_object.y)
-                print(collision)
+                print("Collision from ", collision_from)
             if game_object.type == ObjectType.ITEM and \
-                    (collision["vertical"] and collision["horizontal"]):
+                    collision_from:
                 print("collect object")
                 self.character.add_item(game_object.container)
                 game_object.destroyed = True
