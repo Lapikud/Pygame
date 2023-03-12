@@ -1,23 +1,49 @@
 import pygame
-pygame.init()
 
-# create a window
-screen = pygame.display.set_mode((1200, 600))
-clock = pygame.time.Clock()
 
-running = True
-while running:
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.window = pygame.display.set_mode((640, 480))
+        self.end_surface = pygame.Surface((640, 480))
+        self.end_surface.fill((255, 0, 0))
+        self.clock = pygame.time.Clock()
+        self.running = True
+        self.x, self.y = 120, 120
 
-    # Events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            # closing window finishes game loop
-            running = False
+    def event(self):
+        event_list = pygame.event.get()
+        for event in event_list:
+            if event.type == pygame.QUIT:
+                self.running = False
+                break
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.x += 40
+                elif event.key == pygame.K_LEFT:
+                    self.x -= 40
+                elif event.key == pygame.K_DOWN:
+                    self.y += 40
+                elif event.key == pygame.K_UP:
+                    self.y -= 40
 
-    # Draw
+    def update(self):
+        pass
 
-    # Update screen
-    pygame.display.flip()
+    def render(self):
+        self.window.fill((51, 51, 51))
+        pygame.draw.rect(self.window, (0, 0, 200), (self.x, self.y, 40, 40))
+        pygame.display.update()
 
-    # FPS
-    clock.tick(30)
+    def run(self):
+        while self.running:
+            self.event()
+            self.update()
+            self.render()
+            self.clock.tick(60)
+
+
+if __name__ == '__main__':
+    game = Game()
+    game.run()
+    pygame.quit()
