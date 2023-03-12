@@ -25,7 +25,7 @@ class Game:
         object1 = Object(200, 300, ObjectType.SOLID)
         object2 = Object(50, 440, ObjectType.SOLID)
         object_item = Object(500, 400, ObjectType.ITEM)
-        object_item.add_item(Item("Sword"))
+        object_item.add_item(Item("Sword", pygame.image.load("sprites/sword.png").convert_alpha()))
         gate1 = Gate(pygame.image.load("backgrounds/bg2.png").convert_alpha())
         object_gate1 = Object(600, 120, ObjectType.GATE)
         object_gate1.add_item(gate1)
@@ -75,6 +75,8 @@ class Game:
         for game_object in self.objects:
             pygame.draw.rect(self.window, (0, 255, 0),
                              (game_object.x, game_object.y, game_object.width, game_object.height))
+            if game_object.type == Item:
+                self.window.blit(self.character.img, (game_object.x, game_object.y))
         pygame.display.update()
 
     def run(self):
