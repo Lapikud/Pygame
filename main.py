@@ -2,6 +2,7 @@ import pygame
 
 from Character import Character
 from object import Object
+from object import ObjectType
 
 
 class Game:
@@ -18,8 +19,8 @@ class Game:
         self.objects = self.create_objects()
 
     def create_objects(self):
-        object1 = Object(200, 300)
-        object2 = Object(50, 440)
+        object1 = Object(200, 300, ObjectType.SOLID)
+        object2 = Object(50, 440, ObjectType.SOLID)
         return [object1, object2]
 
     def event(self):
