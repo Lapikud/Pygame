@@ -34,9 +34,9 @@ class Game:
                 self.character.release_key(event.key)
 
     def update(self):
-        game_object = self.character.detect_collision(self.objects)
-        if game_object:
-            print("Collision with object at ", game_object.x, game_object.y)
+        for game_object in self.objects:
+            if self.character.detect_collision(game_object):
+                print("Collision with object at ", game_object.x, game_object.y)
 
     def render(self):
         self.character.move(self.window.get_width(), self.window.get_height())
