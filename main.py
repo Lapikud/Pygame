@@ -1,5 +1,7 @@
 import pygame
 
+from Character import Character
+
 
 class Game:
     def __init__(self):
@@ -9,9 +11,7 @@ class Game:
         self.end_surface.fill((255, 0, 0))
         self.clock = pygame.time.Clock()
         self.running = True
-        self.x, self.y = 120, 120
-        self.vx, self.vy = 0, 0
-        self.speed = 5
+        self.character = Character()
 
     def event(self):
         event_list = pygame.event.get()
@@ -20,25 +20,17 @@ class Game:
                 self.running = False
                 break
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.vx = self.speed
-                elif event.key == pygame.K_LEFT:
-                    self.vx = -self.speed
-                elif event.key == pygame.K_DOWN:
-                    self.vy += self.speed
-                elif event.key == pygame.K_UP:
-                    self.vy = -self.speed
+                self.character.change_direction(event.key)
             elif event.type == pygame.KEYUP:
-                self.vx, self.vy = 0, 0
+                self.character.halt()
 
     def update(self):
         pass
 
     def render(self):
-        self.x = self.x + self.vx
-        self.y = self.y + self.vy
+        self.character.move()
         self.window.fill((51, 51, 51))
-        pygame.draw.rect(self.window, (0, 0, 200), (self.x, self.y, 40, 40))
+        pygame.draw.rect(self.window, (0, 0, 200), (self.character.x, self.character.y, 40, 40))
         pygame.display.update()
 
     def run(self):
