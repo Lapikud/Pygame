@@ -37,6 +37,7 @@ class Game:
         for game_object in self.objects:
             if self.character.detect_collision(game_object):
                 print("Collision with object at ", game_object.x, game_object.y)
+        self.character.move(self.window.get_width(), self.window.get_height())
 
     def render(self):
         self.character.move(self.window.get_width(), self.window.get_height())
