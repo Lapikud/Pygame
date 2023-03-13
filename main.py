@@ -46,26 +46,36 @@ class Game:
                 self.character.release_key(event.key)
 
     def update(self):
+        self.character.move(self.window.get_width(), self.window.get_height())
         for game_object in self.objects:
             collision = self.character.detect_collision(game_object)
             if game_object.type == ObjectType.SOLID and \
-                    (collision["vertical"] and collision["horizontal"]):
+                    collision:
+                match collision:
+                    case "left":
+                        self.character.x += 5
+                    case "right":
+                        self.character.x -= 5
+                    case "up":
+                        self.character.y += 5
+                    case "down":
+                        self.character.y -= 5
+
                 print("Collision with object at ", game_object.x, game_object.y)
                 print(collision)
             if game_object.type == ObjectType.ITEM and \
-                    (collision["vertical"] and collision["horizontal"]):
+                    collision:
                 print("collect object")
                 self.character.add_item(game_object.container)
                 game_object.destroyed = True
             if game_object.type == ObjectType.GATE and \
-                    (collision["vertical"] and collision["horizontal"]):
+                    collision:
                 print("move to another room")
                 gate = game_object.container
                 self.background = gate.background
                 self.objects = gate.objects
                 self.character.move_to_position(game_object.x - 600, game_object.y)
                 break
-        self.character.move(self.window.get_width(), self.window.get_height())
         self.objects = [x for x in self.objects if not x.destroyed]
 
     def render(self):
